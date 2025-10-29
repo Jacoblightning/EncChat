@@ -4,12 +4,14 @@ import os
 
 
 class UserBase(SQLModel):
-    #id: int | None = Field(default=None, primary_key=True)
+    # id: int | None = Field(default=None, primary_key=True)
     id: uuid.UUID = Field(default_factory=uuid.uuid7, primary_key=True)
     username: str
 
+
 class User(UserBase, table=True):
     hashed_password: str
+
 
 class UserCreate(UserBase):
     password: str
