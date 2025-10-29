@@ -1,13 +1,14 @@
 [project]
-name = "backend"
+name = "EncChat_backend"
 version = "0.1.0"
-description = "Add your description here"
+description = "The backend for EncChat"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard-no-fastapi-cloud-cli]>=0.120.1",
     "psycopg2-binary>=2.9.11",
     "pwdlib[argon2]>=0.3.0",
+    "pyjwt[crypto]>=2.10.1",
     "sqlmodel>=0.0.27",
 ]
 
