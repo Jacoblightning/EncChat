@@ -1,35 +1,63 @@
 import { useState } from 'react'
 import { AuthForm, Logout } from './Auth.tsx'
-import './App.css'
+import Chat from './Chat.tsx'
+//import './App.css'
 
 function App() {
-  const [logged_in, setLoggedIn] = useState(false)
+  type AuthStateType =
+    | { logged_in: false }
+    | { logged_in: true, token: string };
+  
+  const [authState, setAuthState] = useState<AuthStateType>({ logged_in: false });
 
-  function login(username: String, password: String) {
+  async function login(username: string, password: string) {
+    const encoded_username = encodeURIComponent(username);
+    const encoded_password = encodeURIComponent(password);
     const response = await fetch('/api/auth/token', {
       method: 'POST',
       headers: {
         'accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      // TODO: Url encoding on stuff
-      body: `username=${username}&password=${password}`
+      
+      body: `username=${encoded_username}&password=${encoded_password}`
     });
 
-    const json = response.json();
+    const json = await response.json();
 
-    
+    if (!response.ok) {
+      const message = json["detail"];
+      alert(message);
+      return;
+    }
+
+    const token = json["access_token"];
+
+    console.assert(json["token_type"] === "bearer", "Token type was not bearer");
+
+    setAuthState({ logged_in: true, token: token });
   }
 
-  function login_handler(_formData: FormData) {
+  async function login_handler(formData: FormData) {
     const username = formData.get("username");
     const password = formData.get("password");
+
+    if (username === null || password === null || typeof username !== "string" || typeof password !== "string") {
+      alert("Something went wrong.");
+      return;
+    }
+
     login(username, password);
   }
 
   async function register_handler(formData: FormData) {
     const username = formData.get("username");
     const password = formData.get("password");
+
+    if (username === null || password === null || typeof username !== "string" || typeof password !== "string") {
+      alert("Something went wrong.");
+      return;
+    }
   
     const response = await fetch('/api/users/create', {
       method: 'POST',
@@ -46,7 +74,7 @@ function App() {
     const json = await response.json();
 
     if (!response.ok) {
-      const message = error["detail"];
+      const message = json["detail"];
       alert(message);
       return;
     }
@@ -54,7 +82,7 @@ function App() {
     login(username, password);
   } 
 
-  if (!logged_in) {
+  if (!authState.logged_in) {
     return (
       <>
         <AuthForm onLogin={login_handler} onRegister={register_handler} />
@@ -63,7 +91,8 @@ function App() {
   } else {
     return (
       <>
-        <Logout callback={() => setLoggedIn(false)}/>
+        <Logout callback={() => setAuthState({ logged_in: false })}/>
+        <Chat token={authState.token} />
       </>
     );
   }

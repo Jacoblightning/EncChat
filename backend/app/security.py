@@ -97,7 +97,7 @@ async def get_current_user(
 @router.post("/token")
 async def login(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: SessionDep
-):
+) -> Token:
     user = authenticate_user(session, form_data.username, form_data.password)
     if not user:
         raise HTTPException(

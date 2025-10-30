@@ -11,6 +11,7 @@
     "npm:eslint@^9.36.0": "9.38.0",
     "npm:globals@^16.4.0": "16.4.0",
     "npm:react-dom@^19.1.1": "19.2.0_react@19.2.0",
+    "npm:react-use-websocket@^4.13.0": "4.13.0",
     "npm:react@^19.1.1": "19.2.0",
     "npm:rolldown-vite@7.1.14": "7.1.14_@types+node@24.9.2_picomatch@4.0.3",
     "npm:typescript-eslint@^8.45.0": "8.46.2_eslint@9.38.0_typescript@5.9.3_@typescript-eslint+parser@8.46.2__eslint@9.38.0__typescript@5.9.3",
@@ -1406,6 +1407,9 @@
     "react-refresh@0.18.0": {
       "integrity": "sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw=="
     },
+    "react-use-websocket@4.13.0": {
+      "integrity": "sha512-anMuVoV//g2N76Wxqvqjjo1X48r9Np3y1/gMl7arX84tAPXdy5R7sB5lO5hvCzQRYjqXwV8XMAiEBOUbyrZFrw=="
+    },
     "react@19.2.0": {
       "integrity": "sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ=="
     },
@@ -1640,6 +1644,7 @@
         "npm:eslint@^9.36.0",
         "npm:globals@^16.4.0",
         "npm:react-dom@^19.1.1",
+        "npm:react-use-websocket@^4.13.0",
         "npm:react@^19.1.1",
         "npm:rolldown-vite@7.1.14",
         "npm:typescript-eslint@^8.45.0",

@@ -1,3 +1,4 @@
+import './Auth.css'
 
 interface AuthProps {
 	// Login callback
@@ -8,6 +9,7 @@ interface AuthProps {
 
 export function AuthForm({onLogin, onRegister}: AuthProps) {
 	return (
+		<div className="auth">
 		<form name="auth">
 			<label htmlFor="username">Username: </label>
 			<br />
@@ -25,6 +27,7 @@ export function AuthForm({onLogin, onRegister}: AuthProps) {
 			
 			<input type="submit" value="Login" formAction={onLogin} /> OR <input type="submit" value="Register" formAction={onRegister} />
 		</form>
+		</div>
 	);
 }
 
