@@ -40,25 +40,27 @@ export default function Chat({ token }: { token: string }) {
 	    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
 	  }[readyState];
 
-
-	/* TODO: Rearrange stuff here. (Around line 58) */
 	return (
 	  <>
 	  <span className="ws_status">The WebSocket is currently {connectionStatus}</span>
-	  <div className="chat">
-	    <br />
-	    <ul>
-	      {messageHistory.map((message, idx) => (
-	      	<>
-	        <span key={idx}>{message ? message.data : null}</span>
-	        <br />
-	        </>
-	      ))}
-	    </ul>
-	    <input type="text" className="message" id="message_field" onKeyUp={(e) => {
-	    	if (e.key == "Enter") send()
-	    }}/>
-	    <button className="send" onClick={send}>Send</button>
+	  <div className="chatcontrol">
+		  <div className="chat">
+		    <br />
+		    <ul>
+		      {messageHistory.map((message, idx) => (
+		      	<>
+		        <span key={idx}>{message ? message.data : null}</span>
+		        <br />
+		        </>
+		      ))}
+		    </ul>
+		  </div>
+		  <div className="controls">
+		  	<input type="text" className="message" id="message_field" onKeyUp={(e) => {
+		  		if (e.key == "Enter") send()
+		  	}}/>
+		  	<button className="send" onClick={send}>Send</button>
+		  </div>
 	  </div>
 	  </>
 	);

@@ -1,29 +1,27 @@
 
 .chat {
 	overflow: scroll;
-	width: 75%;
-	height: 80vh;
-	margin: 10vh auto;
 	border-width: 10px;
 	border-radius: 20px;
 	border-color: aquamarine;
 	border-style: hidden solid dashed;
-	display: flex;
+	height: 80vh;
+	/*display: flex;*/
+}
+
+.chatcontrol {
+	margin: 7vh auto 0;
+	width: 75%;
 }
 
 .ws_status {
 	float: right;
 }
 
-.message {
-	width: 65%;
-	position: relative;
-	height: fit-content;
-	top: 95%;
+.controls {
+	display: flex;
 }
 
-.send {
-	height: fit-content;
-	position: relative;
-	top: 95%;
+.message {
+	width: 100%;
 }
