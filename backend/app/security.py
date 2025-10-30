@@ -16,8 +16,10 @@ from .database import SessionDep, User
 
 from pydantic import BaseModel
 
+import os
 
-SECRET_KEY = "a678ec2f89d4083897b33f1a27b6aa933b0cb4edb83eb7615216a5bc464dc027"
+                                     # Example secret
+SECRET_KEY = os.getenv("JWT_SECRET", "a678ec2f89d4083897b33f1a27b6aa933b0cb4edb83eb7615216a5bc464dc027")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
