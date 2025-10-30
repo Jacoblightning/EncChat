@@ -39,7 +39,9 @@ export default function Chat({ token }: { token: string }) {
 	    [ReadyState.CLOSED]: 'Closed',
 	    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
 	  }[readyState];
-	
+
+
+	/* TODO: Rearrange stuff here. (Around line 58) */
 	return (
 	  <>
 	  <span className="ws_status">The WebSocket is currently {connectionStatus}</span>
@@ -54,7 +56,7 @@ export default function Chat({ token }: { token: string }) {
 	      ))}
 	    </ul>
 	    <input type="text" className="message" id="message_field" onKeyUp={(e) => {
-	    	if (event.key == "Enter") send()
+	    	if (e.key == "Enter") send()
 	    }}/>
 	    <button className="send" onClick={send}>Send</button>
 	  </div>

@@ -36,12 +36,13 @@ async def chat_ws(websocket: WebSocket, token: str, session: SessionDep):
         raise WebSocketException(code=403)
         
     await manager.connect(websocket)
+    username = user.username
     try:
-        await manager.broadcast("Anon joined the chat")
+        await manager.broadcast(f"{username} joined the chat")
         while True:
             data = await websocket.receive_text()
-            await manager.broadcast(f"Anon: {data}")
+            await manager.broadcast(f"{username}: {data}")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast(f"Anon left the chat")
+        await manager.broadcast(f"{username} left the chat")
 
