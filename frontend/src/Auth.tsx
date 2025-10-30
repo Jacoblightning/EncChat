@@ -1,7 +1,14 @@
 
-function AuthForm(onsubmit: Function, formname: String, submittext: String) {
+interface AuthProps {
+	// Login callback
+	onLogin: (formData: FormData) => void,
+	// Register callback
+	onRegister: (formData: FormData) => void,
+}
+
+export function AuthForm({onLogin, onRegister}: AuthProps) {
 	return (
-		<form name={formname} onSubmit={onsubmit}>
+		<form name="auth">
 			<label htmlFor="username">Username: </label>
 			<br />
 			<input type="text" name="username" id="username" required />
@@ -16,21 +23,13 @@ function AuthForm(onsubmit: Function, formname: String, submittext: String) {
 			<br />
 			<br />
 			
-			<input type="submit" value={submittext} /> 
+			<input type="submit" value="Login" formAction={onLogin} /> OR <input type="submit" value="Register" formAction={onRegister} />
 		</form>
 	);
 }
 
-export function Login({ callback }) {
-	return AuthForm(callback, "login", "Login");
-}
-
-export function Register({ callback }) {
-	return AuthForm(callback, "register", "Register");
-}
-
-export function Logout({ callback }) {
+export function Logout({ callback }: { callback: React.MouseEventHandler<HTMLButtonElement> }) {
 	return (
-		<button onClick={callback}>Logout</button>
+		<button type="button" onClick={callback}>Logout</button>
 	);
 }

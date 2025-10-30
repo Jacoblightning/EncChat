@@ -1,37 +1,44 @@
 import { useState } from 'react'
-import { Login, Logout, Register } from './Auth.tsx'
-import { Expandable } from './Helpers.tsx'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { AuthForm, Logout } from './Auth.tsx'
 import './App.css'
 
 function App() {
   const [logged_in, setLoggedIn] = useState(false)
 
-  function login_handler() {
-    
+  function login_handler(_formData: FormData) {
+    alert("Login Called");
   }
 
-  function register_handler() {
-    
-  }
+  async function register_handler(formData: FormData) {
+    const response = await fetch('/api/users/create', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'username': formData.get("username"),
+        'password': formData.get("password"),
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      const message = error["detail"];
+      alert(message);
+    }
+  } 
 
   if (!logged_in) {
     return (
       <>
-        <Expandable buttonText="Login">
-          <Login />
-        </Expandable>
-        <br />
-        <Expandable buttonText="Register">
-          <Register />
-        </Expandable>
+        <AuthForm onLogin={login_handler} onRegister={register_handler} />
       </>
     );
   } else {
     return (
       <>
-        <Logout />
+        <Logout callback={() => setLoggedIn(false)}/>
       </>
     );
   }
