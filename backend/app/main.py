@@ -15,5 +15,5 @@ app.include_router(security.router)
 
 
 @app.on_event("startup")
-def on_startup():
+def on_startup() -> None:
     create_db_and_tables()

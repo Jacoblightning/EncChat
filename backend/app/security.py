@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Literal
 
 import uuid
 from pwdlib import PasswordHash
@@ -10,7 +10,7 @@ from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from sqlmodel import select
+from sqlmodel import select, Session
 
 from .database import SessionDep, User
 
@@ -38,7 +38,7 @@ def hash_password(password: str) -> str:
     return password_hash.hash(password)
 
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict[str,str|datetime], expires_delta: timedelta | None = None) -> str:
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
@@ -49,22 +49,22 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-def get_user_by_uuid(uuid, session):
+def get_user_by_uuid(uuid: uuid.UUID, session: Session) -> User | None:
     return session.get(User, uuid)
 
 
-def get_user_by_username(username, session):
+def get_user_by_username(username: str, session: Session) -> User | None:
     try:
         return session.exec(select(User).where(User.username == username)).one()
     except: #TODO
         return None 
 
 
-def verify_password(cleartext, hashed):
+def verify_password(cleartext: str, hashed: str) -> bool:
     return password_hash.verify(cleartext, hashed)
 
 
-def authenticate_user(session, username: str, password: str):
+def authenticate_user(session: Session, username: str, password: str) -> User | Literal[False]:
     user = get_user_by_username(username, session)
     if not user:
         return False
@@ -112,7 +112,7 @@ async def login(
     return Token(access_token=access_token, token_type="bearer")
 
 
-def token_to_user(token: str, session) -> User | None:
+def token_to_user(token: str, session: Session) -> User | None:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = uuid.UUID(payload.get("sub"))

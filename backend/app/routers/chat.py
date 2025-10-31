@@ -10,27 +10,27 @@ router = APIRouter(prefix="/chat")
 
 
 class ChatManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.clients: list[WebSocket] = []
 
-    async def connect(self, websocket: WebSocket):
+    async def connect(self, websocket: WebSocket) -> None:
         await websocket.accept()
         self.clients.append(websocket)
 
-    def disconnect(self, websocket: WebSocket):
+    def disconnect(self, websocket: WebSocket) -> None:
         self.clients.remove(websocket)
 
-    async def send_personal_message(self, message: str, websocket: WebSocket):
+    async def send_personal_message(self, message: str, websocket: WebSocket) -> None:
         await websocket.send_text(message)
 
-    async def broadcast(self, message: str):
+    async def broadcast(self, message: str) -> None:
         for connection in self.clients:
             await connection.send_text(message)
 
 manager = ChatManager()
 
 @router.websocket("/ws")
-async def chat_ws(websocket: WebSocket, token: str, session: SessionDep):
+async def chat_ws(websocket: WebSocket, token: str, session: SessionDep) -> None:
     user = token_to_user(token, session)
     if not user:
         raise WebSocketException(code=403)

@@ -12,12 +12,12 @@ router = APIRouter(prefix="/users")
 
 
 @router.get("/me")
-async def get_me(user: Annotated[User, Depends(get_current_user)]):
+async def get_me(user: Annotated[User, Depends(get_current_user)]) -> UserPublic:
     return UserPublic.model_validate(user)
 
 
 @router.delete("/me")
-async def delete_me():
+async def delete_me() -> str:
     return "NO"
 
 
