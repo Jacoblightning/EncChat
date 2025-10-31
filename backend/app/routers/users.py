@@ -32,5 +32,4 @@ def create_user(user: UserCreate, session: SessionDep) -> UserPublic:
         # This could also trigger for a UUID conflict but that is exceedingly unlikely.
         raise HTTPException(status_code=409, detail="Username taken")
 
-    # Automatically changed into a UserPublic due to the typing
-    return user
+    return UserPublic.model_validate(user)
