@@ -8,10 +8,9 @@ WORKDIR /server
 
 COPY pyproject.toml uv.lock .
 
-RUN ["uv", "sync", "--locked", "--compile-bytecode", "--no-cache", "--no-editable"]
+RUN ["uv", "sync", "--locked", "--compile-bytecode", "--no-cache", "--no-editable", "--no-dev"]
 
 RUN ["apk", "del", "gcc", "g++", "musl-dev"]
-
 
 COPY . .
 
