@@ -7,7 +7,6 @@ export default function Chat({ token }: { token: string }) {
 	const url = new URL(`/api/chat/ws?token=${token}`, location.href);
 	url.protocol = "ws:";
 	const socketUrl = url.href;
-	console.log("WSURL: ", socketUrl);
 
 	const [messageHistory, setMessageHistory] = useState<MessageEvent<any>[]>([]);
 
@@ -16,6 +15,7 @@ export default function Chat({ token }: { token: string }) {
 
 	useEffect(() => {
 	  if (lastMessage !== null) {
+	  	console.log(messageHistory);
 	    setMessageHistory((prev) => prev.concat(lastMessage));
 	  }
 	}, [lastMessage]);
@@ -33,11 +33,11 @@ export default function Chat({ token }: { token: string }) {
 	}
 
 	const connectionStatus = {
-	    [ReadyState.CONNECTING]: 'Connecting',
-	    [ReadyState.OPEN]: 'Open',
-	    [ReadyState.CLOSING]: 'Closing',
-	    [ReadyState.CLOSED]: 'Closed',
-	    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+	    [ReadyState.CONNECTING]: 'Connecting ...',
+	    [ReadyState.OPEN]: 'Open :)',
+	    [ReadyState.CLOSING]: 'Closing :(',
+	    [ReadyState.CLOSED]: 'Closed :(',
+	    [ReadyState.UNINSTANTIATED]: 'Uninstantiated ???',
 	  }[readyState];
 
 	return (
@@ -59,7 +59,7 @@ export default function Chat({ token }: { token: string }) {
 		  	<input type="text" className="message" id="message_field" onKeyUp={(e) => {
 		  		if (e.key == "Enter") send()
 		  	}}/>
-		  	<button className="send" onClick={send}>Send</button>
+		  	<button type="button" className="send" onClick={send}>Send</button>
 		  </div>
 	  </div>
 	  </>

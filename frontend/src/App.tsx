@@ -47,7 +47,7 @@ function App() {
       return;
     }
 
-    login(username, password);
+    await login(username, password);
   }
 
   async function register_handler(formData: FormData) {
@@ -79,7 +79,7 @@ function App() {
       return;
     }
 
-    login(username, password);
+    await login(username, password);
   } 
 
   if (!authState.logged_in) {
