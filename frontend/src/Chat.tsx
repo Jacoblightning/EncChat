@@ -8,7 +8,7 @@ export default function Chat({ token }: { token: string }) {
 	url.protocol = "ws:";
 	const socketUrl = url.href;
 
-	const [messageHistory, setMessageHistory] = useState<MessageEvent<any>[]>([]);
+	const [messageHistory, setMessageHistory] = useState<MessageEvent[]>([]);
 
 	const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
 
