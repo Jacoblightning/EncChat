@@ -1,4 +1,4 @@
 - Encryption
 - Chat length limit/collapsable
 - Username length limit?
-
+- Update app so that api port is configurable. So you can run the frontend in dev mode.
