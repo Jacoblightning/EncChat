@@ -1,6 +1,6 @@
 # Moved
 
-This repo has moved to my [personal forgejo instance](https://git.jacoblightning3.duckdns.org/jacoblightning3/EncChat).
+This repo has moved to my [personal forgejo instance](https://git.jacoblightning3.xyz/jacoblightning3/EncChat).
 
 # EncChat
 
